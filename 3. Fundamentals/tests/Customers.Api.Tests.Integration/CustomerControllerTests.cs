@@ -9,12 +9,13 @@ public class CustomerControllerTests
     {
         // Arrange
         var customerId = Guid.NewGuid();
-        
-        // Act
-        var response = await new HttpClient
+        var httpClient = new HttpClient
         {
             BaseAddress = new Uri("https://localhost:5001")
-        }.GetAsync($"customers/{customerId}");
+        };
+
+        // Act
+        var response = await httpClient.GetAsync($"customers/{customerId}");
 
         // Assert
         Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
